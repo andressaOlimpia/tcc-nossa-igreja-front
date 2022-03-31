@@ -1,0 +1,32 @@
+<div [ngSwitch]="verificarUsuarioLogado()">
+    <p-menubar *ngSwitchCase="true"  [model]="items">
+        <ng-template pTemplate="start">
+            <img src="assets/nossa-igreja-roxo-navbar.png" alt="Nossa igreja logo" class="logo hidden lg:inline-flex">
+        </ng-template>
+        <ng-template pTemplate="end">
+           <!-- <img src="assets/nossa-igreja-roxo-navbar.png" alt="Nossa igreja logo" class="logo lg:hidden"> Fazer ficar no meio -->
+            <button pButton pRipple type="button" icon="pi pi-sign-out" label="Sair" class="p-button-text p-button-plain" (click)="logout()"></button>
+        </ng-template>
+    </p-menubar>
+    <div *ngSwitchCase="false" id="bar">
+        <img src="assets/nossa-igreja-roxo-navbar.png" alt="Nossa igreja logo" class="logo center">
+    </div>
+</div>
+
+
+<!--<p-toolbar class="shadow-1">
+    <div class="p-toolbar-group-left">
+        <i class="pi pi-bars menu-icon" ></i>
+        <img src="assets/nossa-igreja-roxo-navbar.png" alt="Nossa igreja logo" class="logo">
+    </div>
+</p-toolbar>-->
+
+<!--<div class="inline-flex" >
+    <app-menu></app-menu>
+    <img src="assets/nossa-igreja-roxo-navbar.png" alt="Nossa igreja logo" class="logo">
+    <ng-template pTemplate="start">
+        <img src="assets/nossa-igreja-roxo-navbar.png" alt="Nossa igreja logo" class="logo left-0">
+    </ng-template>
+</div>-->
+
+

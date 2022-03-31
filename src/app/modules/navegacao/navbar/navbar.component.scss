@@ -1,0 +1,42 @@
+.logo {
+    height: 50px;
+    padding-right: 20px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+:host ::ng-deep .p-menubar, #bar {
+    position: fixed;
+    position: -webkit-sticky;
+    z-index: 100000;
+    top: 0;
+    background-color: white;
+    width: 100%;
+}
+
+/*#bar {
+    overflow: hidden;
+    background-color: white;
+    position: fixed;
+    z-index: 100000;
+    top: 0;
+    width: 100%;
+}*/
+
+/*.menu-icon {
+    padding-right: 20px;
+}*/
+
+/*:host ::ng-deep .p-toolbar {
+    position: sticky;
+    position: -webkit-sticky; // Needed for Safari browsers.
+    z-index: 100000; // This prevents elements to be seen through the toolbar.
+    top: 0; // Required for "position: sticky" to take effect.
+    box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.08), 0px 3px 4px rgba(0, 0, 0, 0.1), 0px 1px 4px -1px rgba(0, 0, 0, 0.1);
+}*/

@@ -1,0 +1,59 @@
+<div class="p-fluid p-6 lg:col-6  lg:col-offset-3 main-container">
+    <p-toast position="bottom-left" sticky="true"></p-toast>
+    <div class="text-center mb-5">
+        <h2>Crie a sua conta</h2>
+    </div>
+    <button type="button" pButton class="p-button-warning p-button-raised p-button-rounded p-button-outlined" label="Continuar com Google"></button>
+    <p-divider align="center" >
+        <p class="text-600 font-medium line-height-3">OU</p>
+    </p-divider>
+    <form [formGroup]="cadastroForm">
+        <div class="p-fluid grid formgrid">
+            <span class="p-float-label field col-12 md:col-6">
+                <input type="text" id="nome" pInputText formControlName="firstName">
+                <label for="nome">Nome *</label> 
+            </span>
+            <span class="p-float-label field col-12 md:col-6">
+                <input type="text" id="sobrenome" pInputText formControlName="lastName">
+                <label for="sobrenome">Sobrenome *</label> 
+            </span>
+        </div>
+        <div class="field block">
+            <span class="p-float-label">
+                <input type="text" id="email" pInputText formControlName="email">
+                <label for="email">E-mail *</label> 
+            </span>
+        </div>
+        <div class="field block">
+            <span class="p-float-label">
+                <p-inputMask dateFormat="dd-mm-yyyy" inputId="dataNascimento" mask="99/99/9999" formControlName="birthDate"></p-inputMask>
+                <label for="dataNascimento">Data de nascimento *</label>
+            </span>  
+        </div>
+        <div class="field block">
+            <span class="p-float-label">
+                <p-inputMask inputId="celular" mask="(99) 99999-9999" formControlName="phoneNumber"></p-inputMask>
+                <label for="celular">Nº de celular</label>
+            </span>  
+        </div>
+        <div class="field block">
+            <span class="p-float-label">
+                <input type="password" id="senha" pInputText formControlName="password">
+                <label for="senha">Crie uma senha *</label>
+            </span>  
+        </div>
+        <div class="field-checkbox">
+         <!--  <p-checkbox [binary]="true" inputId="aceitaTermos"></p-checkbox>-->
+           <input type="checkbox" id="aceitaTermos" formControlName="acceptTerms">
+            <label for="aceitaTermos">Concordo com os termos de uso</label>
+        </div>
+        <button type="button" pButton class="p-button-raised p-button-rounded" label="Cadastrar"
+        [disabled]="!cadastroForm.valid"
+        (click)="cadastrarUsuario()">
+        </button>
+    </form>
+    <div class="text-center m-3">
+        <span class="text-600 font-medium line-height-3">Já tem uma conta?</span>
+        <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" [routerLink]="['/login']">Faça login</a>
+    </div>
+</div>
