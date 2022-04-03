@@ -15,7 +15,19 @@ export class UsuarioService {
 
   cadastrarUsuario(usuario:UsuarioModel): Observable<UsuarioModel>{
     const body = JSON.stringify(usuario);
-    return this.http.post(this.urlUsuario, usuario)
+    return this.http.post(`${this.urlUsuario}/cadastrar`, usuario)
+    .pipe(
+      map((response: any) => response),
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  editarUsuario(usuario:UsuarioModel): Observable<UsuarioModel>{
+    const body = JSON.stringify(usuario);
+    return this.http.put(`${this.urlUsuario}/${usuario.id}`, usuario)
     .pipe(
       map((response: any) => response),
       catchError((error: any) => {

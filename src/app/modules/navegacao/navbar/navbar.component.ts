@@ -37,20 +37,30 @@ export class NavbarComponent implements OnInit {
       {
         label:'Doe a quem precisa',
         icon:'pi pi-fw pi-heart',
-        routerLink: ['/doacoes']
+        //routerLink: ['/doacoes']
+        routerLink: ['/em-construcao']
       },
       {
         label:'Grupos de comunhão',
         icon:'pi pi-fw pi-map',
-        routerLink: ['/grupos-comunhao']
+        routerLink: ['/grupos-comunhao/lista']
       },
       {
         label:'Administrativo',
         icon:'pi pi-fw pi-briefcase',
         items:[
-          {label:'Doe a quem precisa', routerLink: ['adm/doacoes']},
-          {label:'Famílias', routerLink: ['adm/familias']},
-          {label:'Itens de doação', routerLink: ['adm/itens-doacao']},
+          {label:'Doe a quem precisa', 
+          //routerLink: ['adm/doacoes']
+          routerLink: ['/em-construcao']
+          },
+          {label:'Famílias', 
+          //routerLink: ['adm/familias']
+          routerLink: ['/em-construcao']
+          },
+          {label:'Itens de doação', 
+          //routerLink: ['adm/itens-doacao']
+          routerLink: ['/em-construcao']
+          },
           {label:'Grupos de comunhão', routerLink: ['adm/grupos-comunhao/lista']},
         ]
       }

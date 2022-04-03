@@ -7,11 +7,15 @@ import { SharedModule } from 'primeng/api'
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { ButtonModule } from 'primeng/button';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { EmConstrucaoComponent } from './em-construcao/em-construcao.component';
 
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    AccessDeniedComponent,
+    EmConstrucaoComponent
   ],
   imports: [
     CommonModule,

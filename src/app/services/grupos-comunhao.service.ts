@@ -26,6 +26,61 @@ export class GruposComunhaoService {
     );
   }
 
+  editarGrupoComunhao(grupoComunhao: GrupoComunhaoModel): Observable<GrupoComunhaoModel>{
+    const body = JSON.stringify(grupoComunhao);
+    return this.http.put(`${this.urlGrupoComunhao}/${grupoComunhao.id}`, grupoComunhao)
+    .pipe(
+      map((response: any) => response),
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  excluirGrupoComunhao(id: number){
+    return this.http.delete(`${this.urlGrupoComunhao}/${id}`)
+    .pipe(
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    )
+  }
+
+  consultarGruposComunhao(): Observable<GrupoComunhaoModel[]>{
+    return this.http.get(this.urlGrupoComunhao)
+    .pipe(
+      map((response: any) => response),
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  consultarGrupoComunhaoPorId(id: string): Observable<GrupoComunhaoModel>{
+    return this.http.get(`${this.urlGrupoComunhao}/${id}`)
+    .pipe(
+      map((response: any) => response),
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  incluirParticipante(idGrupo: any, usuarioInscricao: any): Observable<GrupoComunhaoModel>{
+    return this.http.patch(`${this.urlGrupoComunhao}/${idGrupo}`, usuarioInscricao)
+    .pipe(
+      map((response: any) => response),
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   consultarCepEndereco(cep: string): Observable<CepConsultaModel> {
     return this.http.get<CepConsultaModel>(`https://viacep.com.br/ws/${cep}/json/`)
       .pipe(

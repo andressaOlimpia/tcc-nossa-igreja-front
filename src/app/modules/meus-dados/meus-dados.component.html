@@ -1,25 +1,65 @@
 <div class="surface-card p-4 main-container">
     <h2 class="text-left mb-3">Meus dados</h2>
+    <p-toast position="bottom-left" sticky="true"></p-toast>
 
     <div class="border-2 border-dashed surface-border border-round p-3">
         <li class="flex align-items-center pb-3 flex-wrap">
             <div class="text-700 w-6 md:w-2 font-medium">Nome:</div>
-            <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{usuario.nomeCompleto}}</div>
+            <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{usuario?.nomeCompleto}}</div>
             <div class="w-6 md:w-2 flex justify-content-end p-0">
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-text p-0"></button>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-text p-0" (click)="showModalEdicao()"></button>
             </div>     
         </li>
         <li class="flex align-items-center pb-3 flex-wrap">
             <div class="text-700 w-6 md:w-2 font-medium">Email:</div>
-            <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{usuario.email}}</div>
+            <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{usuario?.email}}</div>
         </li>
         <li class="flex align-items-center pb-3 flex-wrap">
             <div class="text-700 w-6 md:w-2 font-medium">Nº de telefone:</div>
-            <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{usuario.phoneNumber}}</div>
+            <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{usuario?.phoneNumber}}</div>
         </li>
         <li class="flex align-items-center flex-wrap">
             <div class="text-700 w-6 md:w-2 font-medium">Data de nascimento:</div>
-            <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{usuario.birthDate | date : 'dd/MM/yyyy'}}</div>
+            <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{usuario?.birthDate | date : 'dd/MM/yyyy'}}</div>
         </li>
     </div>
 </div>
+
+<p-dialog header="Editar meus dados" [(visible)]="displayModal" [position]="'bottom'" [modal]="true" [style]="{width: '80vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="p-fluid p-2">
+        <form [formGroup]="edicaoUsuarioForm">
+            <div class="p-fluid grid formgrid ">
+                <span class="p-float-label field col-12 md:col-6">
+                    <input type="text" id="nome" pInputText formControlName="firstName">
+                    <label for="nome">Nome *</label> 
+                </span>
+                <span class="p-float-label field col-12 md:col-6">
+                    <input type="text" id="sobrenome" pInputText formControlName="lastName">
+                    <label for="sobrenome">Sobrenome *</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <input type="text" id="email" pInputText formControlName="email">
+                    <label for="email">E-mail *</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-inputMask dateFormat="dd-mm-yyyy" inputId="dataNascimento" mask="99/99/9999" formControlName="birthDate"></p-inputMask>
+                    <label for="dataNascimento">Data de nascimento *</label>
+                </span>  
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-inputMask inputId="celular" mask="(99) 99999-9999" formControlName="phoneNumber"></p-inputMask>
+                    <label for="celular">Nº de celular</label>
+                </span>  
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+    <p-button icon="pi pi-pencil" (click)="editarUsuario()" label="Editar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

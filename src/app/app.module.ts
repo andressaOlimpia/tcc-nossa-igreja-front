@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NavegacaoModule } from './modules/navegacao/navegacao.module';
 import { CadastroModule } from './modules/cadastro/cadastro.module';
 import { GruposComunhaoAdmModule } from './modules/grupos-comunhao-adm/grupos-comunhao-adm.module';
+import { AuthInterceptor } from './core/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { GruposComunhaoAdmModule } from './modules/grupos-comunhao-adm/grupos-co
     
   ],
   providers: [
-    AuthService
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, }
   ],
   bootstrap: [AppComponent]
 })

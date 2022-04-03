@@ -1,6 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { newArray } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,7 +7,7 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { CepConsultaModel } from 'src/app/models/cep-consulta.model';
 import { GrupoComunhaoModel } from 'src/app/models/grupo-comunhao.model';
 import { UsuarioModel } from 'src/app/models/usuario.model';
-import { DiaSemanaEnum } from 'src/app/modules/grupos-comunhao-adm/dia-semana.enum';
+import { DiaSemanaEnum } from 'src/app/models/dia-semana.enum';
 import { GruposComunhaoService } from 'src/app/services/grupos-comunhao.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { StringUtils } from 'src/app/utils/string-utils';
@@ -42,11 +41,11 @@ export class CadastroGrupoComponent implements OnInit {
     this.diasDaSemana = this.getDiasDaSemana();
 
     this.cadastroGrupoForm = this.formBuilder.group({
-      horario: [this.datePipe.transform(new Date(), 'HH:mm'), Validators.required],
-      lider: [""],
-      participantes: [""],
-      maxParticipantes: [0],
-      nome: [""],
+      horario: [new Date(), Validators.required],
+      lider: [null],
+      participantes: [new Array(0)],
+      maxParticipantes: [0, Validators.required],
+      nome: [''],
       endereco: this.formBuilder.group({
         cep: ['', Validators.required],
         logradouro: ['', [Validators.required]],
@@ -62,9 +61,15 @@ export class CadastroGrupoComponent implements OnInit {
   cadastrarGrupo(){
     if (this.cadastroGrupoForm.dirty && this.cadastroGrupoForm.valid) {
       this.grupoComunhao = Object.assign({}, this.grupoComunhao, this.cadastroGrupoForm.value);
+      
       this.grupoComunhao.diaSemana = this.diaSemanaSelecionado.value;
-      console.log(this.grupoComunhao)
-      this.grupoComunhaoService.cadastrarGrupoComunhao(this.grupoComunhao)
+      this.grupoComunhao.horario = this.datePipe.transform(this.cadastroGrupoForm.value.horario, 'HH:mm')
+      if(this.grupoComunhao.participantes == null) {
+        this.grupoComunhao.participantes = new Array(0)}
+      
+        console.log(this.grupoComunhao)
+      
+        this.grupoComunhaoService.cadastrarGrupoComunhao(this.grupoComunhao)
       .subscribe(
         () => {
           this.messageService.add({severity: 'success', summary: 'Eba!', detail: 'Grupo cadastrado com sucesso'});

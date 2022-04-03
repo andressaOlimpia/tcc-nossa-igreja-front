@@ -12,6 +12,11 @@ import { ButtonModule } from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {CalendarModule} from 'primeng/calendar';
+import {DataViewModule} from 'primeng/dataview';
+import { TagModule } from 'primeng/tag';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import {TableModule} from 'primeng/table';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 import { CadastroGrupoComponent } from './cadastro-grupo/cadastro-grupo.component';
@@ -19,7 +24,8 @@ import { EdicaoGrupoComponent } from './edicao-grupo/edicao-grupo.component';
 import { ListaGruposComponent } from './lista-grupos/lista-grupos.component';
 import { GruposComunhaoAdmAppComponent } from './grupos-comunhao-adm.app.component';
 import { GruposComunhaoAdmRoutingModule } from './grupos-comunhao-adm-routing.module';
-import { MessageService } from 'primeng/api';
+import { DetalhesGrupoComponent } from './detalhes-grupo/detalhes-grupo.component';
+import { GrupoComunhaoResolve } from 'src/app/resolves/grupo-comunhao.resolve';
 
 
 
@@ -28,7 +34,8 @@ import { MessageService } from 'primeng/api';
     GruposComunhaoAdmAppComponent,
     CadastroGrupoComponent,
     EdicaoGrupoComponent,
-    ListaGruposComponent
+    ListaGruposComponent,
+    DetalhesGrupoComponent
   ],
   imports: [
     CommonModule,
@@ -43,12 +50,18 @@ import { MessageService } from 'primeng/api';
     DropdownModule,
     AutoCompleteModule,
     CalendarModule,
+    TableModule,
+    DataViewModule,
+    TagModule,
+    ConfirmDialogModule,
 
     GruposComunhaoAdmRoutingModule
   ],
   providers: [
     MessageService,
-    DatePipe
+    DatePipe,
+    ConfirmationService,
+    GrupoComunhaoResolve
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

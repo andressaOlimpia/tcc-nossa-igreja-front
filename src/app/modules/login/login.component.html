@@ -3,10 +3,14 @@
     <div class="text-center mb-5">
         <h2>Entre em sua conta</h2>
     </div>
+
+    <!--
     <button type="button" pButton class="p-button-warning p-button-raised p-button-rounded p-button-outlined" label="Continuar com Google"></button>
     <p-divider align="center" >
         <p class="text-600 font-medium line-height-3">OU</p>
     </p-divider>
+    -->
+
     <form [formGroup]="loginForm">
         <div class="field block">
             <span class="p-float-label p-input-icon-left">
@@ -27,10 +31,13 @@
         [disabled]="!loginForm.valid">
         </button>
     </form>
+
+    
     <div class="text-center cursor-pointer text-blue-500">
-        <p>Esqueceu a senha?</p>
+     <!--   <p>Esqueceu a senha?</p> -->
     </div>
-    <div class="text-center mb-5">
+   
+    <div class="text-center p-5 mb-5">
         <span class="text-600 font-medium line-height-3">Não tem uma conta?</span>
         <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" [routerLink]="['/cadastro']">Cadastre-se</a>
     </div>

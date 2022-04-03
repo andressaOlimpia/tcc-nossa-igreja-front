@@ -12,20 +12,21 @@
     <form [formGroup]="cadastroGrupoForm">
         <div class="field block">
             <span class="p-float-label">
-                <p-calendar [timeOnly]="true" inputId="horario" formControlName="horario"></p-calendar>
+                <p-calendar [timeOnly]="true" dateFormat="HH:mm" inputId="horario" formControlName="horario"></p-calendar>
                 <label for="horario">Horário *</label>
             </span>
         </div>
         <div class="field block">
             <span class="p-float-label">
-                <input type="text" id="nome" pInputText formControlName="nome">
-                <label for="nome">Nome do grupo</label> 
+                <p-inputNumber inputId="maxParticipantes" mode="decimal" [showButtons]="true" [min]="0" [max]="50" formControlName="maxParticipantes"></p-inputNumber>
+                <label for="maxParticipantes">Nº máximo de participantes *</label>
             </span>
         </div>
+        
         <div class="field block">
             <span class="p-float-label">
-                <p-inputNumber inputId="maxParticipantes" mode="decimal" [showButtons]="true" [min]="0" [max]="50" formControlName="maxParticipantes"></p-inputNumber>
-                <label for="maxParticipantes">Nº máximo de participantes</label>
+                <input type="text" id="nome" pInputText formControlName="nome">
+                <label for="nome">Nome do grupo</label> 
             </span>
         </div>
 
