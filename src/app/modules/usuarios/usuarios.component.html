@@ -1,0 +1,107 @@
+<div class="surface-card p-4 main-container">
+    <p-toast position="bottom-left" sticky="true"></p-toast>
+    <h2 class="text-left mb-3">Usuários - administrativo</h2>
+    <div class="card">
+        <p-table #dt [value]="usuarios" [columns]="cols" [paginator]="true" [rows]="5" [rowHover]="true" [rowsPerPageOptions]="[5,10,15]" [totalRecords]="totalRecords" layout="grid">
+            <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row">
+                    <h3 class="inline text-center mb-3">Lista de usuários</h3>
+                    <button type="button" pButton pRipple icon="pi pi-file-pdf" label="Exportar PDF" (click)="exportPdf()" class="p-button-info p-button-rounded p-button-outlined m-2"></button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of cols">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template let-usuario pTemplate="body">
+                <tr>
+                    <td>
+                        <span class="p-column-title">Nome</span>
+                        {{usuario.nomeCompleto}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Data de nascimento</span>
+                        {{usuario.birthDate | date : 'dd/MM/yyyy'}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Celular</span>
+                        {{usuario.phoneNumber}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">E-mail</span>
+                        {{usuario.email}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Permissão</span>
+                        <div *ngFor="let role of usuario.roles">
+                            {{role.name}}
+                        </div> 
+                    </td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-lock" label="Permissão" (click)="showModalEdicaoPermissao(usuario)" class="p-button-rounded p-button-warning p-button-outlined"></button>
+                    </td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" (click)="showModalEdicao(usuario)" class="p-button-rounded p-button-outlined"></button>
+                        <button pButton pRipple icon="pi pi-trash" (click)="excluirUsuario(usuario)" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <p-dialog header="Alterar permissão de usuário" [(visible)]="displayModalPermissao" [position]="'center'" [modal]="true" [style]="{width: '80vw'}"
+        [draggable]="false" [resizable]="false">
+        <p>Selecione o nível de permissão para o usuário {{usuarioSelecionado?.nomeCompleto}}:</p>
+        <div *ngFor="let permissao of permissoes" class="field-checkbox">
+            <p-radioButton [inputId]="permissao.name" name="permissao" [value]="permissao" [(ngModel)]="selectedPermissao"></p-radioButton>
+            <label [for]="permissao.id">{{permissao.name}}</label>
+        </div>
+        <div class="p-fluid lg:col-6  lg:col-offset-3">
+            <p-button label="Alterar permissão" (click)="editarPermissaoUsuario()" styleClass="p-button-rounded"></p-button>
+        </div>
+    </p-dialog>
+
+    <p-dialog header="Editar dados de usuário" [(visible)]="displayModalEdicao" [position]="'bottom'" [modal]="true" [style]="{width: '80vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="p-fluid p-2">
+        <form [formGroup]="edicaoUsuarioForm">
+            <div class="p-fluid grid formgrid ">
+                <span class="p-float-label field col-12 md:col-6">
+                    <input type="text" id="nome" pInputText formControlName="firstName">
+                    <label for="nome">Nome *</label> 
+                </span>
+                <span class="p-float-label field col-12 md:col-6">
+                    <input type="text" id="sobrenome" pInputText formControlName="lastName">
+                    <label for="sobrenome">Sobrenome *</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <input type="text" id="email" pInputText formControlName="email">
+                    <label for="email">E-mail *</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-inputMask dateFormat="dd-mm-yyyy" inputId="dataNascimento" mask="99/99/9999" formControlName="birthDate"></p-inputMask>
+                    <label for="dataNascimento">Data de nascimento *</label>
+                </span>  
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-inputMask inputId="celular" mask="(99) 99999-9999" formControlName="phoneNumber"></p-inputMask>
+                    <label for="celular">Nº de celular</label>
+                </span>  
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+    <p-button icon="pi pi-pencil" label="Editar" (click)="editarUsuario()" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+</div>

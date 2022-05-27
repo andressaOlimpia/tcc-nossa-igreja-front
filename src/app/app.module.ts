@@ -13,6 +13,11 @@ import { NavegacaoModule } from './modules/navegacao/navegacao.module';
 import { CadastroModule } from './modules/cadastro/cadastro.module';
 import { GruposComunhaoAdmModule } from './modules/grupos-comunhao-adm/grupos-comunhao-adm.module';
 import { AuthInterceptor } from './core/auth.interceptor';
+import { UsuariosModule } from './modules/usuarios/usuarios.module';
+import { ItensDoacaoModule } from './modules/itens-doacao/itens-doacao.module';
+import { DoacoesModule } from './modules/doacoes/doacoes.module';
+import { DoacoesAdmModule } from './modules/doacoes-adm/doacoes-adm.module';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -24,12 +29,17 @@ import { AuthInterceptor } from './core/auth.interceptor';
     HttpClientModule,
 
     BrowserAnimationsModule,
+    ChartModule,
 
     NavegacaoModule,
     LoginModule,
     MeusDadosModule,
     CadastroModule,
-    GruposComunhaoAdmModule
+    GruposComunhaoAdmModule,
+    UsuariosModule,
+    ItensDoacaoModule,
+    DoacoesModule,
+    DoacoesAdmModule
   ],
   exports: [
     

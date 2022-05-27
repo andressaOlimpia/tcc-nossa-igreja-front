@@ -1,0 +1,52 @@
+<div class="p-fluid p-6 lg:col-6  lg:col-offset-3 main-container">
+    <p-toast position="bottom-left" sticky="true"></p-toast>
+    <div class="text-center mb-5">
+        <h2>Edite o pedido de doação</h2>
+    </div>
+    
+    <form [formGroup]="edicaoDoacaoForm">
+        <div class="field block">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="categoria" [suggestions]="filteredCategorias" (completeMethod)="filtrarCategorias($event)" field="nome" [dropdown]="true">
+                </p-autoComplete>
+                <label for="categoria">Categoria *</label>
+            </span>
+        </div>
+        <div class="field block">
+            <span class="p-float-label">
+                <p-autoComplete [disabled]="!verificaSeCategoriaSelecionada()" formControlName="item" [suggestions]="filteredItens" (completeMethod)="filtrarItens($event)" field="nome" [dropdown]="true">
+                </p-autoComplete>
+                <label for="item">Item *</label>
+            </span>
+        </div>
+        <div class="field block">
+            <span class="p-float-label">
+                <input type="text" id="tamanho" pInputText formControlName="tamanho">
+                <label for="tamanho">Tamanho *</label> 
+            </span>
+        </div>
+        <div class="field block">
+            <span class="p-float-label">
+                <p-inputNumber inputId="quantidade" mode="decimal" [showButtons]="true" [min]="0" [max]="100" formControlName="quantidade"></p-inputNumber>
+                <label for="quantidade">Quantidade *</label>
+            </span>
+        </div>
+        <div class="field block">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="familia" [suggestions]="filteredFamilias" (completeMethod)="filtrarFamilias($event)" field="principal.nomeCompleto" [dropdown]="true">
+                </p-autoComplete>
+                <label for="familia">Para quem se destina? *</label>
+            </span>
+        </div>
+        <div class="field block">
+            <span class="p-float-label">
+                <input type="text" id="detalhes" pInputText formControlName="detalhes">
+                <label for="detalhes">Detalhes</label> 
+            </span>
+        </div>
+        <button type="button" pButton class="p-button-raised p-button-rounded" label="Alterar doação"
+        [disabled]="!edicaoDoacaoForm.valid"
+        (click)="editarDoacao()">
+        </button>
+    </form>
+</div>

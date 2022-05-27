@@ -1,0 +1,34 @@
+<div class="surface-card p-4 main-container">
+    <h2 class="text-left mb-3">Família</h2>
+
+    <div class="border-2 border-dashed overflow-auto surface-border border-round p-3">
+        <li class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 font-medium">Principal</div>
+            <div class="w-full flex-order-1">{{familia?.principal.nomeCompleto}}</div>
+            <div class="w-6 flex justify-content-end p-0">
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-text p-0" [routerLink]="['/adm/familias/edicao/', familia?.id]"></button>
+            </div>
+            <div class="w-full flex-order-1">{{familia?.principal.phoneNumber}}</div>
+            <div class="w-full flex-order-1">{{familia?.principal.email}}</div>
+            <div class="w-full flex-order-1">{{familia?.principal.birthDate | date : 'dd/MM/yyyy'}}</div>     
+        </li>
+        <li class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 md:w-2 pb-2 font-medium">Endereço</div>
+            <div class="w-full flex-order-1">
+                {{familia?.endereco?.logradouro}},
+                {{familia?.endereco?.numero}},
+                {{familia?.endereco?.bairro}},
+                {{familia?.endereco?.cidade}},
+                {{familia?.endereco?.estado}}
+                {{familia?.endereco?.complemento}}
+            </div>
+        </li>
+        <li class="flex align-items-center flex-wrap">
+            <div class="text-700 w-6 md:w-2 pb-2 font-medium">Outros familiares</div>
+            <div *ngFor="let familiar of familia?.familiares" class="p-1 w-full flex-order-1">{{familiar?.nomeCompleto}} - {{familiar?.birthDate | date : 'dd/MM/yyyy'}}</div>
+            <div *ngFor="let familiarSemCadastro of familia?.familiaresSemCadastro" class="p-1 w-full flex-order-1">{{familiarSemCadastro?.nome}} {{familiarSemCadastro?.sobrenome}} - {{familiarSemCadastro?.dataNascimento | date : 'dd/MM/yyyy'}}</div>
+        </li>
+    </div>
+</div>
+
+

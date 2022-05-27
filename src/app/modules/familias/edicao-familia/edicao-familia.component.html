@@ -1,0 +1,113 @@
+<div class="p-fluid p-6 lg:col-6  lg:col-offset-3 main-container">
+    <p-toast position="bottom-left" sticky="true"></p-toast>
+    <div class="text-center mb-5">
+        <h2>Editar família</h2>
+    </div>
+    <form [formGroup]="edicaoFamiliaForm">
+        <div class="field block">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="principal" [suggestions]="filteredMembros" (completeMethod)="filtrarUsuarios($event)" field="nomeCompleto" [dropdown]="true">
+                </p-autoComplete>
+                <label for="principal">Principal *</label>
+            </span>
+        </div>
+ 
+        <div class="field block">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="familiares" [suggestions]="filteredMembros" (completeMethod)="filtrarUsuarios($event)" field="nomeCompleto" [multiple]="true" [dropdown]="true">
+                </p-autoComplete>
+                <label for="familiares">Outros familiares</label>
+            </span>
+        </div>
+        <div class="p-fluid grid formgrid">
+            <button type="button" pButton class="p-button-text" (click)="displayModal=true">
+            <i class="pi pi-plus-circle mr-2"></i>
+            Incluir familiar sem cadastro
+            </button>
+        </div>
+        <p-card *ngIf="listaFamiliaresSemCadastro.length > 0">
+            <div class="flex align-items-center">
+                <p-chip *ngFor="let familiar of listaFamiliaresSemCadastro" (onRemove)="excluirFamiliarSemCadastro(familiar.nome)" [removable]="true">{{familiar?.nome}} {{familiar?.sobrenome}}</p-chip>
+            </div>
+        </p-card>
+
+        <div formGroupName="endereco">
+            <div class="text-left mb-3">
+                <h4>Endereço</h4>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-inputMask inputId="cep" (onBlur)="buscarCep($event)" mask="99.999-999" formControlName="cep"></p-inputMask>
+                    <label for="cep">CEP *</label>
+                </span>  
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <input type="text" id="logradouro" pInputText formControlName="logradouro">
+                    <label for="logradouro">Logradouro *</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <input type="text" id="numero" pInputText formControlName="numero">
+                    <label for="numero">Número *</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <input type="text" id="complemento" pInputText formControlName="complemento">
+                    <label for="complemento">Complemento</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <input type="text" id="bairro" pInputText formControlName="bairro">
+                    <label for="bairro">Bairro *</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <input type="text" id="cidade" pInputText formControlName="cidade">
+                    <label for="cidade">Cidade *</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <input type="text" id="estado" pInputText formControlName="estado">
+                    <label for="estado">Estado *</label> 
+                </span>
+            </div>
+        </div>
+        <button type="button" pButton class="p-button-raised p-button-rounded" label="Editar família"
+        [disabled]="!edicaoFamiliaForm.valid"
+        (click)="editarFamilia()">
+        </button>
+    </form>
+
+    <p-dialog header="Incluir familiar sem cadastro" [(visible)]="displayModal" [position]="'center'" [modal]="true" [style]="{width: '80vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="p-fluid p-2">
+        <form [formGroup]="inclusaoFamiliarForm">
+            <div class="p-fluid grid formgrid ">
+                <span class="p-float-label field col-12 md:col-6">
+                    <input type="text" id="nome" pInputText formControlName="nome">
+                    <label for="nome">Nome *</label> 
+                </span>
+                <span class="p-float-label field col-12 md:col-6">
+                    <input type="text" id="sobrenome" pInputText formControlName="sobrenome">
+                    <label for="sobrenome">Sobrenome *</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-inputMask dateFormat="dd-mm-yyyy" inputId="dataNascimento" mask="99/99/9999" formControlName="dataNascimento"></p-inputMask>
+                    <label for="dataNascimento">Data de nascimento *</label>
+                </span>  
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="incluirFamiliarSemCadastro()" label="Incluir familiar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+</div>

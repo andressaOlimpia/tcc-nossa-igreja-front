@@ -7,5 +7,11 @@ export interface UsuarioModel {
     email: string,
     password: string,
 	acceptTerms: boolean,
-    nomeCompleto?: string
+    nomeCompleto?: string,
+    roles: RoleModel[]
+}
+
+export interface RoleModel {
+    id?: number,
+    name: string
 }

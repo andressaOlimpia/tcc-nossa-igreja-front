@@ -1,0 +1,59 @@
+<div class="surface-card p-4 main-container">
+    <p-toast position="bottom-left" sticky="true"></p-toast>
+    <h2 class="text-left mb-3">Doe a quem precisa</h2>
+    <div class="card">
+        <p-table #dt [value]="doacoes" [paginator]="true" [rows]="5" [totalRecords]="totalRecords" layout="grid">
+          <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row md:justify-content-between">
+                    <h3 class="inline text-center mb-3">Lista de pedidos de doação</h3>
+                </div>
+            </ng-template>
+            <ng-template #container let-doacao pTemplate="body">
+                <tr>
+                    <td>
+                        <li class="flex align-items-center pb-3 flex-wrap">
+                            <div class="text-600 w-full">Item</div>
+                            <div class="w-full flex-order-1">{{doacao?.item.nome}}</div>  
+                        </li>
+                    </td>
+                    <td>
+                        <li class="flex align-items-center pb-3 flex-wrap">
+                            <div class="text-600 w-full">Tamanho</div>
+                            <div class="w-full flex-order-1">{{doacao?.tamanho}}</div>  
+                        </li>
+                    </td>
+                    <td>
+                        <li class="flex align-items-center pb-3 flex-wrap">
+                            <div class="text-600 w-full">Quantidade</div>
+                            <div class="w-full flex-order-1">{{doacao?.quantidade}}</div>  
+                        </li>
+                    </td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-heart" class="p-button-text" label="Quero doar" (click)="showModal(doacao)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <p-dialog header="Item para doação: {{itemSelecionado?.item.nome}} {{itemSelecionado?.tamanho}}" [(visible)]="displayModal" [position]="'center'" [modal]="true" [style]="{width: '80vw'}"
+    [draggable]="false" [resizable]="false">
+            <div class="p-fluid p-2">
+                <form [formGroup]="doacaoForm">
+                    <div class="p-fluid grid formgrid">
+                        <span  class="p-float-label field col-12 md:col-6">
+                            <p-inputNumber inputId="quantidade" mode="decimal" [showButtons]="true" [min]="1" [max]="quantidadeMaxima" formControlName="quantidade"></p-inputNumber>
+                            <label for="quantidade">Quantidade *</label>
+                        </span>
+                        <span  class="p-float-label field col-12 md:col-6">
+                            <p-calendar dataType="string" dateFormat="dd/mm/yy" appendTo="body" inputId="dataEntrega" formControlName="dataEntrega"></p-calendar>
+                            <label for="dataEntrega">Data em que você entregará na igreja</label>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" label="Confirmar doação" (click)="confirmarDoacao()" styleClass="p-button-text"></p-button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>

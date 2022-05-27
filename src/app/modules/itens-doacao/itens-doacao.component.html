@@ -1,0 +1,84 @@
+<div class="surface-card p-4 main-container">
+    <p-toast position="bottom-left" sticky="true"></p-toast>
+    <h2 class="text-left mb-3">Itens de doação - administrativo</h2>
+    <div class="card">
+        <p-table #dt [value]="itens" [paginator]="true" [rows]="5" [totalRecords]="totalRecords" layout="grid">
+            <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row">
+                    <h3 class="inline text-center mb-3">Lista de itens de doação</h3>
+                    <button pButton pRipple type="button" icon="pi pi-plus" label="Incluir item" class="p-button-outlined p-button-rounded m-2" (click)="showModalInclusao()"></button>
+                </div>
+            </ng-template>
+            <ng-template let-item pTemplate="body">
+                <tr>
+                    <td>
+                        <li class="flex align-items-center pb-3 flex-wrap">
+                            <div class="text-600 w-full">Nome</div>
+                            <div class="w-full flex-order-1">{{item.nome}}</div>  
+                        </li>
+                    </td>
+                    <td>
+                        <li class="flex align-items-center pb-3 flex-wrap">
+                            <div class="text-600 w-full">Categoria</div>
+                            <div class="w-full flex-order-1">{{item.categoria.nome}}</div>  
+                        </li>
+                    </td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" (click)="showModalEdicao(item)" class="p-button-rounded p-button-outlined"></button>
+                        <button pButton pRipple icon="pi pi-trash" (click)="excluirItem(item)" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <p-dialog header="Incluir item de doação" [(visible)]="displayModalInclusao" [position]="'center'" [modal]="true" [style]="{width: '80vw'}"
+    [draggable]="false" [resizable]="false">
+        <div class="p-fluid p-2">
+            <form [formGroup]="edicaoItemDoacaoForm">
+                <div class="field block">
+                    <span class="p-float-label">
+                        <input type="text" id="nome" pInputText formControlName="nome">
+                        <label for="nome">Nome *</label> 
+                    </span>
+                </div>
+                <div class="field block">
+                    <span class="p-float-label">
+                        <p-autoComplete appendTo="body" formControlName="categoria" [suggestions]="filteredCategorias" (completeMethod)="filtrarCategorias($event)" field="nome" [dropdown]="true">
+                        </p-autoComplete>
+                        <label for="categoria">Categoria *</label>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" label="Incluir" (click)="incluirItemDoacao()" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-dialog>
+
+    <p-dialog header="Editar item de doação" [(visible)]="displayModalEdicao" [position]="'bottom'" [modal]="true" [style]="{width: '80vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="p-fluid p-2">
+        <form [formGroup]="edicaoItemDoacaoForm">
+            <div class="field block">
+                <span class="p-float-label">
+                    <input type="text" id="nome" pInputText formControlName="nome">
+                    <label for="nome">Nome *</label> 
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-autoComplete appendTo="body" formControlName="categoria" [suggestions]="filteredCategorias" (completeMethod)="filtrarCategorias($event)" field="nome" [dropdown]="true">
+                    </p-autoComplete>
+                    <label for="categoria">Categoria *</label>
+                </span>
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+    <p-button icon="pi pi-pencil" label="Editar" (click)="editarItemDoacao()" styleClass="p-button-text"></p-button>
+    </ng-template>
+    </p-dialog>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+</div>

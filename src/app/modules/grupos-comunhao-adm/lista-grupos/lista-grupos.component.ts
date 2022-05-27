@@ -13,6 +13,8 @@ export class ListaGruposComponent implements OnInit {
   grupos: GrupoComunhaoModel[];
   totalRecords: number;
   cols: any[];
+  exportColumns: any[];
+  exportGruposComunhao: any[];
 
   constructor(
     private grupoComunhaoService: GruposComunhaoService,
@@ -37,8 +39,12 @@ export class ListaGruposComponent implements OnInit {
       { field: 'diaSemana', header: 'Dia da semana' },
       { field: 'horario', header: 'Horário' },
       { field: 'lider', header: 'Líder' },
-      { field: 'participantes', header: 'Nº de participantes' }
+      { field: 'participantes', header: 'Nº de participantes' },
+      { field: 'status', header: 'Status' },
+      { field: 'acoes', header: '' },
   ];
+
+    this.exportColumns = this.cols.map(col => ({title: col.header, dataKey: col.field}));
   }
 
   verificaSeGrupoLotado(grupo: GrupoComunhaoModel):boolean {
@@ -59,5 +65,23 @@ export class ListaGruposComponent implements OnInit {
           )
         }
     });
+  }
+
+  exportPdf(){
+    this.exportGruposComunhao = JSON.parse(JSON.stringify(this.grupos))
+    this.exportGruposComunhao.map(grupo => {
+      grupo.status = this.verificaSeGrupoLotado(grupo)? 'Lotado' : 'Disponível'
+      grupo.lider = grupo.lider?.nomeCompleto
+      grupo.participantes = grupo.participantes?.length
+      
+    })
+
+    import("jspdf").then(jsPDF => {
+        import("jspdf-autotable").then(x => {
+            const doc = new jsPDF.default("l");
+            (doc as any).autoTable(this.exportColumns, this.exportGruposComunhao);
+            doc.save('grupos-comunhao.pdf');
+        })
+    })
   }
 }

@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError} from 'rxjs';
 import { Urls } from '../core/constants/urls';
-import { UsuarioModel } from '../models/usuario.model';
+import { RoleModel, UsuarioModel } from '../models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +62,38 @@ export class UsuarioService {
           return throwError(() => error);
         })
       );
+  }
+
+  listarUsuariosRoles(): Observable<RoleModel[]>{
+    return this.http.get(`${this.urlUsuario}/roles`)
+    .pipe(
+      map((response: any) => response),
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  editarUsuarioRole(usuario:UsuarioModel): Observable<UsuarioModel>{
+    const body = JSON.stringify(usuario);
+    return this.http.put(`${this.urlUsuario}/${usuario.id}/role`, usuario)
+    .pipe(
+      map((response: any) => response),
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  excluirUsuario(id: number){
+    return this.http.delete(`${this.urlUsuario}/${id}`)
+    .pipe(
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    )
   }
 }

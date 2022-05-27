@@ -24,12 +24,15 @@
     <p-toast position="bottom-left" sticky="true"></p-toast>
     <h2 class="text-left mb-3">Grupos de comunhão - administrativo</h2>
     <div class="card">
-        <p-table #dt [value]="grupos" [columns]="cols" [paginator]="true" [rows]="5" [totalRecords]="totalRecords" layout="grid">
-          <ng-template pTemplate="header">
-                <div class="flex flex-column md:flex-row md:justify-content-between">
+        <p-table #dt [value]="grupos" [columns]="cols" [paginator]="true" [rows]="5"  [rowHover]="true" [rowsPerPageOptions]="[5,10,15]" [totalRecords]="totalRecords" layout="grid">
+            <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row">
                     <h3 class="inline text-center mb-3">Lista de grupos</h3>
-                    <button pButton pRipple type="button" icon="pi pi-plus" label="Incluir grupo" class="p-button-outlined p-button-rounded my-2" [routerLink]="['/adm/grupos-comunhao/cadastro']"></button>
+                    <button pButton pRipple type="button" icon="pi pi-plus" label="Incluir grupo" class="p-button-outlined p-button-rounded m-2" [routerLink]="['/adm/grupos-comunhao/cadastro']"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-pdf" label="Exportar PDF" (click)="exportPdf()" class="p-button-info p-button-rounded p-button-outlined m-2"></button>
                 </div>
+            </ng-template>
+            <ng-template pTemplate="header">
                 <tr>
                     <th *ngFor="let col of cols">
                         {{col.header}}
@@ -59,13 +62,13 @@
                         {{grupo.participantes?.length}}
                     </td>
                     <td>
+                        <p-tag icon="pi pi-exclamation-triangle" *ngIf="verificaSeGrupoLotado(grupo)" severity="warning" value="Lotado" [rounded]="true"></p-tag>
+                        <p-tag icon="pi pi-check" *ngIf="!verificaSeGrupoLotado(grupo)" severity="success" value="Disponível" [rounded]="true"></p-tag>
+                    </td>
+                    <td>
                         <button pButton pRipple icon="pi pi-search" class="p-button-rounded p-button-outlined" [routerLink]="['/adm/grupos-comunhao/detalhe/', grupo.id]"></button>
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-button-outlined" [routerLink]="['/adm/grupos-comunhao/edicao/', grupo.id]"></button>
                         <button pButton pRipple icon="pi pi-trash" (click)="excluirGrupoComunhao(grupo.id)" class="p-button-rounded p-button-danger p-button-outlined"></button>
-                    </td>
-                    <td>
-                        <p-tag icon="pi pi-exclamation-triangle" *ngIf="verificaSeGrupoLotado(grupo)" severity="warning" value="Lotado" [rounded]="true"></p-tag>
-                        <p-tag icon="pi pi-check" *ngIf="!verificaSeGrupoLotado(grupo)" severity="success" value="Disponível" [rounded]="true"></p-tag>
                     </td>
                 </tr>
             </ng-template>

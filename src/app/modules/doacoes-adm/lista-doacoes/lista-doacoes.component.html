@@ -1,0 +1,77 @@
+<div class="surface-card p-4 main-container">
+    <p-toast position="bottom-left" sticky="true"></p-toast>
+    <h2 class="text-left mb-3">Doe a quem precisa - administrativo</h2>
+    <div class="card">
+
+        <div class="p-fluid grid justify-content-center">
+            <p-card  subheader="Doadores" class="col-6 md:col-3">
+                <i class="pi pi-heart"></i>
+                {{totalDoadores}}
+            </p-card>
+            <p-card subheader="Famílias assistidas" class="col-6 md:col-3">
+                <i class="pi pi-users"></i>
+                {{totalFamiliasComPedido}}
+            </p-card>
+        </div>
+
+        <div class="p-fluid grid justify-content-center">
+            <p-chart class="col-8 md:col-3" type="doughnut" [data]="dataPedidosVsAguardandoEntrega" [options]="chartOptions"></p-chart>
+        </div>
+
+        <div class="p-fluid grid justify-content-center">
+            <p-chart class="col-12 md:col-4" type="bar" [data]="dataPedidosPorCategoria" [options]="chartOptions"></p-chart>
+            <p-chart class="col-12 md:col-4" type="line" [data]="dataPedidosPorMes" [options]="chartOptions"></p-chart>
+        </div>
+
+        <p-table #dt [value]="doacoes" [columns]="cols" [paginator]="true" [rows]="5" [rowHover]="true" [rowsPerPageOptions]="[5,10,15]" [totalRecords]="totalRecords" layout="grid">
+            <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row">
+                    <h3 class="inline text-center mb-3">Lista de pedidos de doações</h3>
+                    <button pButton pRipple type="button" icon="pi pi-plus" label="Incluir doação" class="p-button-outlined p-button-rounded m-2" [routerLink]="['/adm/doacoes/cadastro']"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-pdf" label="Exportar PDF" (click)="exportPdf()" class="p-button-info p-button-rounded p-button-outlined m-2"></button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of cols">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template let-doacao pTemplate="body">
+                <tr>
+                    <td>
+                        <span class="p-column-title">Item</span>
+                        {{doacao?.item?.nome}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Tamanho</span>
+                        {{doacao?.tamanho}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Quantidade</span>
+                        {{doacao?.quantidade}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Familia</span>
+                        {{doacao?.familia?.principal?.nomeCompleto}}
+                    </td>
+
+                    <td>
+                        <p-tag icon="pi pi-exclamation-triangle" *ngIf="doacao.dataEntrega && !doacao.entregaRealizada" severity="warning" value="Aguardando entrega" [rounded]="true"></p-tag>
+                        <p-tag icon="pi pi-check" *ngIf="doacao.entregaRealizada" severity="success" value="Entregue" [rounded]="true"></p-tag>
+                    </td>
+
+                    <td>
+                        <button *ngIf="!doacao.entregaRealizada" pButton pRipple icon="pi pi-check" (click)="informarEntrega(doacao)" class="p-button-rounded p-button-success p-button-outlined"></button>
+                        <button *ngIf="doacao.entregaRealizada" pButton pRipple icon="pi pi-replay" (click)="cancelarEntrega(doacao)" class="p-button-rounded p-button-help p-button-outlined"></button>
+                        <button pButton pRipple icon="pi pi-search" class="p-button-rounded p-button-outlined" [routerLink]="['/adm/doacoes/detalhe/', doacao.id]"></button>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-outlined" [routerLink]="['/adm/doacoes/edicao/', doacao.id]"></button>
+                        <button pButton pRipple icon="pi pi-trash" (click)="excluirDoacao(doacao.id)" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+    </div>
+</div>

@@ -7,6 +7,10 @@ export const Urls = {
     nossaIgrejaAuth,
      
     usuario: nossaIgrejaApi + 'users',
-    grupoComunhao: nossaIgrejaApi + 'grupos-comunhao'
+    grupoComunhao: nossaIgrejaApi + 'grupos-comunhao',
+    itensDoacao: nossaIgrejaApi + 'itens-doacao',
+    categoriasDoacao: nossaIgrejaApi + 'categorias-doacao',
+    familia: nossaIgrejaApi + 'familia',
+    doacoes: nossaIgrejaApi + 'doacoes'
 
 }

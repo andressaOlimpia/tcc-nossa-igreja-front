@@ -1,0 +1,56 @@
+<div class="surface-card p-4 main-container">
+    <h2 class="text-left mb-3">Pedido de doação <p-tag *ngIf="doacao.dataEntrega" icon="pi pi-exclamation-triangle" severity="warning" value="Aguardando entrega" [rounded]="true"></p-tag></h2>
+
+    <div class="border-2 border-dashed overflow-auto surface-border border-round p-3">
+        <li class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 font-medium">Item</div>
+            <div class="w-full flex-order-1">{{doacao?.item.nome}}</div>
+            <div class="w-6 flex justify-content-end p-0">
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-text p-0" [routerLink]="['/adm/doacoes/edicao/', doacao?.id]"></button>
+            </div>
+        </li>
+        <li class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 font-medium">Tamanho</div>
+            <div class="w-full flex-order-1">{{doacao?.tamanho}}</div>
+        </li>
+        <li class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 font-medium">Quantidade</div>
+            <div class="w-full flex-order-1">{{doacao?.quantidade}}</div>
+        </li>
+        <li class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 font-medium">Informações complementares</div>
+            <div class="w-full flex-order-1">{{doacao?.detalhes}}</div>
+        </li>
+        
+        <li class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 font-medium">Familiar principal</div>
+            <div class="w-full flex-order-1">{{doacao?.familia?.principal.nomeCompleto}}</div>
+            <div class="w-full flex-order-1">{{doacao?.familia?.principal.phoneNumber}}</div>
+            <div class="w-full flex-order-1">{{doacao?.familia?.principal.email}}</div>
+        </li>
+        <li class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 md:w-2 pb-2 font-medium">Endereço da família</div>
+            <div class="w-full flex-order-1">
+                {{doacao?.familia?.endereco?.logradouro}},
+                {{doacao?.familia?.endereco?.numero}},
+                {{doacao?.familia?.endereco?.bairro}},
+                {{doacao?.familia?.endereco?.cidade}},
+                {{doacao?.familia?.endereco?.estado}}
+                {{doacao?.familia?.endereco?.complemento}}
+            </div>
+        </li>
+        <li *ngIf="doacao.doador" class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 font-medium">Doador</div>
+            <div class="w-full flex-order-1">{{doacao?.doador?.nomeCompleto}}</div>
+        </li>
+        <li *ngIf="doacao.dataEntrega" class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 font-medium">Data da entrega</div>
+            <div class="w-full flex-order-1">{{doacao?.dataEntrega | date : 'dd/MM/yyyy'}}</div>
+        </li>
+        <li *ngIf="doacao.dataReserva" class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 font-medium">Data da reserva</div>
+            <div class="w-full flex-order-1">{{doacao?.dataReserva | date : 'dd/MM/yyyy'}}</div>
+        </li>
+    </div>
+</div>
+
