@@ -26,6 +26,7 @@ import { GruposComunhaoAdmAppComponent } from './grupos-comunhao-adm.app.compone
 import { GruposComunhaoAdmRoutingModule } from './grupos-comunhao-adm-routing.module';
 import { DetalhesGrupoComponent } from './detalhes-grupo/detalhes-grupo.component';
 import { GrupoComunhaoResolve } from 'src/app/resolves/grupo-comunhao.resolve';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
@@ -54,6 +55,7 @@ import { GrupoComunhaoResolve } from 'src/app/resolves/grupo-comunhao.resolve';
     DataViewModule,
     TagModule,
     ConfirmDialogModule,
+    TooltipModule,
 
     GruposComunhaoAdmRoutingModule
   ],

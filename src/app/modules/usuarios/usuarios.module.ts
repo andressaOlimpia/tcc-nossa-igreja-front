@@ -16,6 +16,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { UsuarioResolve } from 'src/app/resolves/usuario.resolve';
 import { DialogModule } from 'primeng/dialog';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     TableModule,
     ConfirmDialogModule,
     DialogModule,
-    RadioButtonModule
+    RadioButtonModule,
+    TooltipModule,
   ],
   providers: [
     MessageService,

@@ -66,9 +66,9 @@
                         <p-tag icon="pi pi-check" *ngIf="!verificaSeGrupoLotado(grupo)" severity="success" value="Disponível" [rounded]="true"></p-tag>
                     </td>
                     <td>
-                        <button pButton pRipple icon="pi pi-search" class="p-button-rounded p-button-outlined" [routerLink]="['/adm/grupos-comunhao/detalhe/', grupo.id]"></button>
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-button-outlined" [routerLink]="['/adm/grupos-comunhao/edicao/', grupo.id]"></button>
-                        <button pButton pRipple icon="pi pi-trash" (click)="excluirGrupoComunhao(grupo.id)" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                        <button pButton pRipple icon="pi pi-search"  pTooltip="Visualizar" tooltipPosition="bottom" class="p-button-rounded p-button-outlined" [routerLink]="['/adm/grupos-comunhao/detalhe/', grupo.id]"></button>
+                        <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="bottom" class="p-button-rounded p-button-success p-button-outlined" [routerLink]="['/adm/grupos-comunhao/edicao/', grupo.id]"></button>
+                        <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="bottom" (click)="excluirGrupoComunhao(grupo.id)" class="p-button-rounded p-button-danger p-button-outlined"></button>
                     </td>
                 </tr>
             </ng-template>

@@ -35,7 +35,7 @@
                         <p-tag icon="pi pi-check" *ngIf="!verificaSeGrupoLotado(grupo)" severity="success" value="Disponível" [rounded]="true"></p-tag>
                     </td>
                     <td>
-                        <button pButton pRipple icon="pi pi-chevron-right" class="p-button-text p-button-lg" [routerLink]="['/grupos-comunhao/inscricao/', grupo.id]"></button>
+                        <button pButton pRipple pTooltip="Ver detalhes" tooltipPosition="bottom" icon="pi pi-chevron-right" class="p-button-text p-button-lg" [routerLink]="['/grupos-comunhao/inscricao/', grupo.id]"></button>
                     </td>
                 </tr>
             </ng-template>

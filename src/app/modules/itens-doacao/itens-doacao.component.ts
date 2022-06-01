@@ -56,10 +56,10 @@ export class ItensDoacaoComponent implements OnInit {
   }
 
   showModalInclusao(){
-    this.edicaoItemDoacaoForm.patchValue({
-      nome: "",
-      categoria: ""
-    })
+    this.edicaoItemDoacaoForm.reset()
+    Object.keys(this.edicaoItemDoacaoForm.controls).forEach(key => {
+      this.edicaoItemDoacaoForm.controls[key].setErrors(null)
+    });
     this.displayModalInclusao = true;
   }
 

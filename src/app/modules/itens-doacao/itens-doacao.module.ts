@@ -13,6 +13,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ItensDoacaoResolve } from 'src/app/resolves/item-doacao.resolve';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
@@ -33,6 +34,7 @@ import { ItensDoacaoResolve } from 'src/app/resolves/item-doacao.resolve';
     TableModule,
     ConfirmDialogModule,
     DialogModule,
+    TooltipModule,
   ],
 
   providers: [

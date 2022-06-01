@@ -7,6 +7,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { InputMaskModule } from 'primeng/inputmask';
+import { TooltipModule } from 'primeng/tooltip';
+import { TableModule } from 'primeng/table';
+import {DropdownModule} from 'primeng/dropdown';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 
 
@@ -23,6 +29,15 @@ import { InputMaskModule } from 'primeng/inputmask';
     ToastModule,
     InputMaskModule,
     DialogModule,
-  ]
+    TooltipModule,
+    TableModule,
+    AutoCompleteModule,
+    DropdownModule,
+    ConfirmDialogModule,
+  ],
+  providers: [
+    MessageService,
+    ConfirmationService,
+  ],
 })
 export class MeusDadosModule { }

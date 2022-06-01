@@ -34,9 +34,9 @@
                         {{familia?.endereco?.bairro}}
                     </td>
                     <td>
-                        <button pButton pRipple icon="pi pi-search" class="p-button-rounded p-button-outlined" [routerLink]="['/adm/familias/detalhe/', familia.id]"></button>
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-button-outlined" [routerLink]="['/adm/familias/edicao/', familia.id]"></button>
-                        <button pButton pRipple icon="pi pi-trash" (click)="excluirFamilia(familia.id)" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                        <button pButton pRipple icon="pi pi-search" pTooltip="Visualizar" tooltipPosition="bottom" class="p-button-rounded p-button-outlined" [routerLink]="['/adm/familias/detalhe/', familia.id]"></button>
+                        <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="bottom" class="p-button-rounded p-button-success p-button-outlined" [routerLink]="['/adm/familias/edicao/', familia.id]"></button>
+                        <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="bottom" (click)="excluirFamilia(familia.id)" class="p-button-rounded p-button-danger p-button-outlined"></button>
                     </td>
                 </tr>
             </ng-template>

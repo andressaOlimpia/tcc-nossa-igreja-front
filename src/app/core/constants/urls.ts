@@ -11,6 +11,7 @@ export const Urls = {
     itensDoacao: nossaIgrejaApi + 'itens-doacao',
     categoriasDoacao: nossaIgrejaApi + 'categorias-doacao',
     familia: nossaIgrejaApi + 'familia',
-    doacoes: nossaIgrejaApi + 'doacoes'
+    doacoes: nossaIgrejaApi + 'doacoes',
+    escalaGrupoComunhao: nossaIgrejaApi + 'escalas-grupo-comunhao'
 
 }

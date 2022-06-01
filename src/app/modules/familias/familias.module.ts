@@ -22,6 +22,7 @@ import { DialogModule } from 'primeng/dialog';
 import {CardModule} from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
 import { FamiliaResolve } from 'src/app/resolves/familia.resolve';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
@@ -50,6 +51,7 @@ import { FamiliaResolve } from 'src/app/resolves/familia.resolve';
     DialogModule,
     CardModule,
     ChipModule,
+    TooltipModule,
 
     FamiliasRoutingModule
   ]

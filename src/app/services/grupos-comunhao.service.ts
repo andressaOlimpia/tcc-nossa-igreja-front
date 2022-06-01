@@ -70,8 +70,30 @@ export class GruposComunhaoService {
     );
   }
 
+  consultarGruposComunhaoPorParticipante(id: string): Observable<GrupoComunhaoModel[]>{
+    return this.http.get(`${this.urlGrupoComunhao}/participante/${id}`)
+    .pipe(
+      map((response: any) => response),
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   incluirParticipante(idGrupo: any, usuarioInscricao: any): Observable<GrupoComunhaoModel>{
     return this.http.patch(`${this.urlGrupoComunhao}/${idGrupo}`, usuarioInscricao)
+    .pipe(
+      map((response: any) => response),
+      catchError((error: any) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  excluirParticipante(idGrupo: any, usuarioInscricao: any): Observable<GrupoComunhaoModel>{
+    return this.http.patch(`${this.urlGrupoComunhao}/${idGrupo}/cancelar-inscricao`, usuarioInscricao)
     .pipe(
       map((response: any) => response),
       catchError((error: any) => {

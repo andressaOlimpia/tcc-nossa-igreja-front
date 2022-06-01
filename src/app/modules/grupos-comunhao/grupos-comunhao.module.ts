@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { InscricaoGrupoComponent } from './inscricao-grupo/inscricao-grupo.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
@@ -30,6 +31,7 @@ import { AuthService } from 'src/app/services/auth.service';
     TableModule,
     TagModule,
     ConfirmDialogModule,
+    TooltipModule,
 
     GruposComunhaoRoutingModule
   ],

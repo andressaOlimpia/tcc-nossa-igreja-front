@@ -25,6 +25,7 @@ import { ConfirmationService } from 'primeng/api';
 import { DoacaoResolve } from 'src/app/resolves/doacao.resolve';
 import {ChartModule} from 'primeng/chart';
 import {CardModule} from 'primeng/card';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import {CardModule} from 'primeng/card';
     ConfirmDialogModule,
     ChartModule,
     CardModule,
+    TooltipModule,
 
     DoacoesAdmRoutingModule
   ],

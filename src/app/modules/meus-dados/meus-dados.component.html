@@ -7,7 +7,7 @@
             <div class="text-700 w-6 md:w-2 font-medium">Nome:</div>
             <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{usuario?.nomeCompleto}}</div>
             <div class="w-6 md:w-2 flex justify-content-end p-0">
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-text p-0" (click)="showModalEdicao()"></button>
+                <button pButton pRipple pTooltip="Editar" tooltipPosition="bottom" icon="pi pi-pencil" class="p-button-text p-0" (click)="showModalEdicao()"></button>
             </div>     
         </li>
         <li class="flex align-items-center pb-3 flex-wrap">
@@ -22,6 +22,73 @@
             <div class="text-700 w-6 md:w-2 font-medium">Data de nascimento:</div>
             <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{usuario?.birthDate | date : 'dd/MM/yyyy'}}</div>
         </li>
+    </div>
+
+    <h2 *ngIf="inscricaoGrupo" class="text-left mb-3">Meus grupos de comunhão</h2>
+
+    <div  *ngFor="let grupoTabela of gruposTabela" class="border-2 border-dashed surface-border border-round my-2 p-3">
+        <li class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 md:w-2 font-medium">Grupo</div>
+            <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{grupoTabela?.grupo.nome}}</div>
+            <div class="w-6 md:w-2 flex justify-content-end p-0">
+                <button pButton pRipple pTooltip="Sair do grupo" tooltipPosition="bottom" icon="pi pi-trash" class="p-button-text p-button-danger p-0" (click)="cancelarInscricao(grupoTabela.grupo)"></button>
+            </div>     
+        </li>
+        <li class="flex align-items-center pb-3 flex-wrap">
+            <div class="text-700 w-6 md:w-2 font-medium">Dia e horário</div>
+            <div class="w-full md:w-8 md:flex-order-0 flex-order-1">{{grupoTabela?.grupo.diaSemana}} - {{grupoTabela?.grupo.horario}}h</div>     
+        </li>
+
+        <p-table #dt [value]="grupoTabela.escalas" [paginator]="false" layout="grid">
+            <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row">
+                    <h3 class="inline text-center">Escalas</h3>
+                </div>
+            </ng-template>
+            <ng-template let-escala pTemplate="body">
+                <tr>
+                    <td>
+                        <li class="flex align-items-center pb-3 flex-wrap">
+                            <div class="text-600 w-full">Data</div>
+                            <div class="w-full flex-order-1">{{escala?.data | date : 'dd/MM/yyyy'}}</div>  
+                        </li>
+                    </td>
+                    <td>
+                        <li class="flex align-items-center pb-3 flex-wrap">
+                            <div class="text-600 w-full">Dinâmica</div>
+                            <div class="w-full flex-order-1">{{escala?.dinamica?.nomeCompleto || "-"}}</div>  
+                        </li>
+                    </td>
+                    <td>
+                        <li class="flex align-items-center pb-3 flex-wrap">
+                            <div class="text-600 w-full">Louvor</div>
+                            <div class="w-full flex-order-1">{{escala?.louvor?.nomeCompleto || "-"}} </div>  
+                        </li>
+                    </td>
+                    <td>
+                        <li class="flex align-items-center pb-3 flex-wrap">
+                            <div class="text-600 w-full">Palavra</div>
+                            <div class="w-full flex-order-1">{{escala?.palavra?.nomeCompleto || "-"}}</div>  
+                        </li>
+                    </td>
+                    <td>
+                        <li class="flex align-items-center pb-3 flex-wrap">
+                            <div class="text-600 w-full">Lanche</div>
+                            <div class="w-full flex-order-1">{{escala?.lanche?.nomeCompleto || "-"}}</div>  
+                        </li>
+                    </td>
+                    <td>
+                        <button pButton pRipple pTooltip="Editar" tooltipPosition="bottom" icon="pi pi-pencil" (click)="showModalEdicaoEscala(grupoTabela, escala)" class="p-button-rounded p-button-outlined"></button>
+                        <button pButton pRipple pTooltip="Excluir" tooltipPosition="bottom" icon="pi pi-trash" (click)="excluirEscala(escala)" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <div class="flex flex-column md:flex-row">
+                    <button pButton pRipple type="button" label="Incluir escala" icon="pi pi-plus" class="p-button-outlined p-button-rounded m-2" (click)="showModalInclusaoEscala(grupoTabela)"></button>
+                </div>
+            </ng-template>
+        </p-table>
     </div>
 </div>
 
@@ -60,6 +127,94 @@
         </form>
     </div>
     <ng-template pTemplate="footer">
-    <p-button icon="pi pi-pencil" (click)="editarUsuario()" label="Editar" styleClass="p-button-text"></p-button>
+    <p-button icon="pi pi-pencil" (click)="editarUsuario()" label="Salvar alterações" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
+
+<p-dialog header="Incluir escala" [(visible)]="displayModalInclusaoEscala" [position]="'center'" [modal]="true" [style]="{width: '80vw'}"
+    [draggable]="false" [resizable]="false">
+        <div class="p-fluid p-2">
+            <form [formGroup]="escalaForm">
+                <div class="field block">
+                    <span class="p-float-label">
+                        <p-inputMask dateFormat="dd-mm-yyyy" inputId="data" mask="99/99/9999" formControlName="data"></p-inputMask>
+                        <label for="data">Data *</label>
+                    </span>  
+                </div>
+                <div class="field block">
+                    <span class="p-float-label">
+                        <p-autoComplete appendTo="body" [suggestions]="participantesGrupoSelecionado" (completeMethod)="filterParticipantes($event)" field="nomeCompleto" [dropdown]="true" formControlName="dinamica" ></p-autoComplete>
+                        <label for="dinamica">Dinâmica</label>
+                    </span>
+                </div>
+
+                <div class="field block">
+                    <span class="p-float-label">
+                        <p-autoComplete appendTo="body" [suggestions]="participantesGrupoSelecionado" (completeMethod)="filterParticipantes($event)" field="nomeCompleto" [dropdown]="true" formControlName="louvor"></p-autoComplete>
+                        <label for="louvor">Louvor</label>
+                    </span>
+                </div>
+                <div class="field block">
+                    <span class="p-float-label">
+                        <p-autoComplete appendTo="body" [suggestions]="participantesGrupoSelecionado" (completeMethod)="filterParticipantes($event)" field="nomeCompleto" [dropdown]="true" formControlName="palavra"></p-autoComplete>
+                        <label for="palavra">Palavra</label>
+                    </span>
+                </div>
+
+                <div class="field block">
+                    <span class="p-float-label">
+                        <p-autoComplete appendTo="body" [suggestions]="participantesGrupoSelecionado" (completeMethod)="filterParticipantes($event)" field="nomeCompleto" [dropdown]="true" formControlName="lanche"></p-autoComplete>
+                        <label for="lanche">Lanche</label>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" label="Incluir" (click)="incluirEscala()" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+<p-dialog header="Editar item de doação" [(visible)]="displayModalEdicaoEscala" [position]="'bottom'" [modal]="true" [style]="{width: '80vw'}"
+    [draggable]="false" [resizable]="false">
+    <div class="p-fluid p-2">
+        <form [formGroup]="escalaForm">
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-inputMask dateFormat="dd-mm-yyyy" inputId="data" mask="99/99/9999" formControlName="data"></p-inputMask>
+                    <label for="data">Data *</label>
+                </span>  
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-autoComplete appendTo="body" [suggestions]="participantesGrupoSelecionado" (completeMethod)="filterParticipantes($event)" field="nomeCompleto" [dropdown]="true" formControlName="dinamica" ></p-autoComplete>
+                    <label for="dinamica">Dinâmica</label>
+                </span>
+            </div>
+
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-autoComplete appendTo="body" [suggestions]="participantesGrupoSelecionado" (completeMethod)="filterParticipantes($event)" field="nomeCompleto" [dropdown]="true" formControlName="louvor"></p-autoComplete>
+                    <label for="louvor">Louvor</label>
+                </span>
+            </div>
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-autoComplete appendTo="body" [suggestions]="participantesGrupoSelecionado" (completeMethod)="filterParticipantes($event)" field="nomeCompleto" [dropdown]="true" formControlName="palavra"></p-autoComplete>
+                    <label for="palavra">Palavra</label>
+                </span>
+            </div>
+
+            <div class="field block">
+                <span class="p-float-label">
+                    <p-autoComplete appendTo="body" [suggestions]="participantesGrupoSelecionado" (completeMethod)="filterParticipantes($event)" field="nomeCompleto" [dropdown]="true" formControlName="lanche"></p-autoComplete>
+                    <label for="lanche">Lanche</label>
+                </span>
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+    <p-button icon="pi pi-pencil" label="Salvar alterações" (click)="editarEscala()" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>

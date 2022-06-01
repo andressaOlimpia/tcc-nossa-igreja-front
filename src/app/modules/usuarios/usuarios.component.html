@@ -40,12 +40,15 @@
                             {{role.name}}
                         </div> 
                     </td>
+<!--
                     <td>
                         <button pButton pRipple icon="pi pi-lock" label="Permissão" (click)="showModalEdicaoPermissao(usuario)" class="p-button-rounded p-button-warning p-button-outlined"></button>
                     </td>
+-->
                     <td>
-                        <button pButton pRipple icon="pi pi-pencil" (click)="showModalEdicao(usuario)" class="p-button-rounded p-button-outlined"></button>
-                        <button pButton pRipple icon="pi pi-trash" (click)="excluirUsuario(usuario)" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                        <button pButton pRipple pTooltip="Alterar permissão" tooltipPosition="bottom" icon="pi pi-lock" (click)="showModalEdicaoPermissao(usuario)" class="p-button-rounded p-button-warning p-button-outlined"></button>
+                        <button pButton pRipple pTooltip="Editar" tooltipPosition="bottom" icon="pi pi-pencil" (click)="showModalEdicao(usuario)" class="p-button-rounded p-button-outlined"></button>
+                        <button pButton pRipple pTooltip="Excluir" tooltipPosition="bottom" icon="pi pi-trash" (click)="excluirUsuario(usuario)" class="p-button-rounded p-button-danger p-button-outlined"></button>
                     </td>
                 </tr>
             </ng-template>
